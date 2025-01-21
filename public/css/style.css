@@ -1,0 +1,71 @@
+.gov-logo {
+    height: 80px;
+    background-image: url("img/1200px-Emblem_of_Sri_Lanka.svg.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.edu-background {
+    height: 400px;
+    background-image: url("img/education-illustration.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+@media (min-width: 768px) {
+    .edu-background {
+        height: 500px;
+        background-image: url("img/education-illustration.svg");
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+}
+
+.link_hov {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.default-bg {
+    background-color: #E2E5E7;
+}
+
+.link_hov:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.edu-background-dashboard {
+    height: 100px;
+    background-image: url("img/education-illustration.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.set-border-dash {
+    border-radius: 5px;
+    margin-top: auto;
+    margin-bottom: auto;
+    cursor: pointer;
+    background-color: #FFFF;
+}
+
+.set-border-dash:hover {
+    cursor: pointer;
+    background-color: rgb(251, 251, 251);
+}
+
+.scroll-app {
+    overflow-y: scroll;
+    height: 400px;
+}
+
+.scroll-app-2 {
+    overflow-y: scroll;
+    height: 400px;
+}
+
+.scroll-app-student {
+    overflow-y: scroll;
+    height: 400px;
+}
