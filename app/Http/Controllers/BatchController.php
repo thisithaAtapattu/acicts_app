@@ -106,19 +106,25 @@ class BatchController extends Controller
         ]);
         $studentResult = Student::select(["*", "students.id AS studentId"])->where("admission_no", $request->admission_no)->where("school_id", $schoolClass->school_id)->get();
 
-        if ($studentResult->count() == 1) {
-            BatchStudent::create([
 
-
-                'batch_id' => $batch->id,
-                'student_id' => $studentResult[0]->studentId,
-                
-            ]);
-
-            return redirect()->back()->with('success-message', 'The student has successfully been added to the batch!');
-        } else {
-
+        if ($studentResult->count() == 0) {
             return back()->withErrors(provider: ['admission_no' => 'Invalid Student!'])->withInput();;
         }
+
+        if (BatchStudent::where("student_id", $studentResult[0]->studentId)->where("batch_id", $batch->id)->count()!=0) {
+            return back()->withErrors(provider: ['admission_no' => 'A student with this admission no already exists in this batch.'])->withInput();;
+        }
+
+
+
+        BatchStudent::create([
+
+
+            'batch_id' => $batch->id,
+            'student_id' => $studentResult[0]->studentId,
+
+        ]);
+
+        return redirect()->back()->with('success-message', 'The student has successfully been added to the batch!');
     }
 }

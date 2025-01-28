@@ -4,20 +4,29 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class BatchStudent extends Model
+class ExtracurricularStudent extends Model
 {
 
 
     protected $fillable = [
-        'batch_id',
         'student_id',
+        'extracurricular_id',
 
 
 
     ];
 
+
     public function student()
     {
         return $this->belongsTo(Student::class, 'student_id');
     }
+
+    public function extracurricular()
+    {
+        return $this->belongsTo(Extracurricular::class, 'extracurricular_id');
+    }
+
+
+
 }

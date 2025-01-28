@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\AchievementController;
 use App\Http\Controllers\BatchController;
 use App\Http\Controllers\BatchStudentController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\ExtracurricularController;
+use App\Http\Controllers\ExtracurricularStudentController;
+use App\Http\Controllers\ResultController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
@@ -12,6 +15,7 @@ use App\Http\Middleware\SchoolLogInRestrictionMiddleware;
 use App\Http\Middleware\TeacherAuthenticationMiddleware;
 use App\Http\Middleware\TeacherLogInRestrictionMiddleware;
 use App\Models\BatchStudent;
+use App\Models\Result;
 use App\Models\Teacher;
 use Illuminate\Support\Facades\Route;
 
@@ -22,7 +26,7 @@ Route::get('/', function () {
 
 
 
-Route::middleware( [SchoolAuthenticationMiddleware::class])->group(function () {
+Route::middleware([SchoolAuthenticationMiddleware::class])->group(function () {
 
 
     Route::post('/schools/logout', [SchoolController::class, "logOut"]);
@@ -73,8 +77,6 @@ Route::middleware([TeacherLogInRestrictionMiddleware::class])->group(function ()
 
     Route::get('/teachers/login', [TeacherController::class, "login"]);
     Route::post('/teachers/authenticate', [TeacherController::class, "authenticate"]);
-
-
 });
 
 
@@ -83,16 +85,25 @@ Route::middleware([TeacherAuthenticationMiddleware::class])->group(function () {
 
     Route::get('/teachers/dashboard', [TeacherController::class, "edit"]);
     Route::get('/teachers/class-management', [ClassController::class, "manage"]);
+    Route::get('/teachers/extracurricular-management', [ExtracurricularController::class, "manage"]);
 
-    Route::get('/teachers/classes/{schoolClass}', [BatchController::class, "create"]);
+
+    Route::get('/teachers/classes/{schoolClass}', action: [BatchController::class, "create"]);
+    Route::get('/teachers/extracurriculars/{extracurricular}', action: [ExtracurricularStudentController::class, "create"]);
+
 
     Route::post('/teachers/logout', [TeacherController::class, "logOut"]);
-    Route::post('/{schoolClass}/batches', [BatchController::class, "store"]);
+    Route::post('/{schoolClass}/batches', action: [BatchController::class, "store"]);
     Route::get('/{schoolClass}/batches/{batch}/edit', [BatchController::class, "edit"]);
     Route::put('/{schoolClass}/batches/{batch}/edit', [BatchController::class, "update"]);
 
     Route::get('/{schoolClass}/batches/{batch}/batchstudent/{batchStudent}', [BatchStudentController::class, "index"]);
-    Route::put('/{schoolClass}/batches/{batch}/batchstudent/{batchStudent}', [BatchStudentController::class, "update"]);
+    Route::put('/{schoolClass}/batches/{batch}/batchstudent/{batchStudent}', [ResultController::class, "update"]);
 
+    Route::post('/extracurriculars/{extracurricular}/extracurricularstudents', [ExtracurricularStudentController::class, "store"]);
+
+    Route::get('/teachers/students/{extracurricularStudent}/achievements/create', [AchievementController::class, "create"]);
+
+    Route::post('/students/{extracurricularStudent}/achivements', [AchievementController::class, "store"]);
 
 });

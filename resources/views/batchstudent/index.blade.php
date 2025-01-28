@@ -1,6 +1,4 @@
-@php
-    $school = Session::get('school');
-@endphp
+
 
 
 <x-teacher-dashboard-header page="" />

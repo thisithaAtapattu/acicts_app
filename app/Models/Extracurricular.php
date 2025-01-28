@@ -16,8 +16,6 @@ class Extracurricular extends Model
         'school_id',
         'teacher_id',
 
-        // 'status',
-        // 'verification_code'
 
 
 

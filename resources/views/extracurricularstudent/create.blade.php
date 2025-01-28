@@ -7,6 +7,9 @@
 
 
 
+<!-- Update profile section -->
+<!-- Update profile section -->
+
 <div class="col-md-6 ">
 
 
@@ -26,17 +29,18 @@
 
             <div class="row">
 
-                <h1 class="fs-1 fw-bold has-text-info text-center">Add students to the batch</h1>
+                <h1 class="fs-1 fw-bold has-text-info text-center">Add students to {{ $extracurricular->activity->name }}
+                </h1>
 
             </div>
 
 
 
 
-            <form class="row mt-5 ms-md-3" action="{{ asset($schoolClass->id . '/batches/' . $batch->id . '/edit') }}"
+            <form class="row mt-5 ms-md-3"
+                action="{{ asset('/extracurriculars/' . $extracurricular->id . '/extracurricularstudents') }}"
                 method="POST">
                 @csrf
-                @method('PUT')
 
 
                 @error('batch_error')
@@ -132,7 +136,7 @@
                     <th scope="col">Name</th>
                     <th scope="col">Admission No</th>
                     <th scope="col">Date of Birth</th>
-                    <th scope="col">View Academic Details</th>
+                    <th scope="col">View Achivement Details</th>
 
 
                 </tr>
@@ -150,7 +154,7 @@
                         <td>{{ $student->student->admission_no }}</td>
                         <td>{{ $student->student->dob }}</td>
                         <td><a class="button is-danger"
-                                href="{{ asset($schoolClass->id . '/batches/' . $batch->id . '/batchstudent/' . $student->id) }}">View</a>
+                                href="{{ asset('teachers/students/'.$student->studentId.'/achievements/create') }}">View</a>
                         </td>
 
                     </tr>

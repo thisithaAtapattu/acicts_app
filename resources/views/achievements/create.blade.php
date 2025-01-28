@@ -1,8 +1,3 @@
-@php
-    $school = Session::get('school');
-@endphp
-
-
 <x-teacher-dashboard-header page="" />
 
 
@@ -29,38 +24,38 @@
 
             <div class="row">
 
-                <h1 class="fs-1 fw-bold has-text-info text-center">Create New Batch for
-                    {{ $schoolClass->grade . ' ' . $schoolClass->name }}</h1>
+                <h1 class="fs-1 fw-bold has-text-info text-center">Update Achievement Details of
+                    {{ $student->student->first_name . ' ' . $student->student->last_name }}</h1>
+
+
+                @error('achievement_error')
+                    <p class="text-danger  fs-6 fw-bold text-center">{{ $message }}</p>
+                @enderror
+
 
             </div>
 
 
 
 
-            <form class="row mt-5 ms-md-3" action="{{ asset($schoolClass->id . '/batches') }}" method="POST">
+            <form class="row mt-5 ms-md-3" action="{{ asset('students/' . $student->id . '/achivements') }}" method="POST">
                 @csrf
 
 
 
-                @error('batch_error')
-                    <p class="text-danger  fs-6 fw-bold">{{ $message }}</p>
-                @enderror
+
 
                 <div class="col-6">
 
 
 
                     <div class="mb-3">
-                        <label for="date_of_birth" class="form-label">From Date</label>
-
-
-                        <input class="input is-info  d-grid" type="date" name="from_date"
-                            value="{{ old('from_date') }}">
-
+                        <input class="input is-info  d-grid" type="text" name="event" value="{{ old('event') }}"
+                            placeholder="Event">
 
                         <div class="row ">
 
-                            @error('from_date')
+                            @error('event')
                                 <p class="text-danger  fs-6 fw-bold">{{ $message }}</p>
                             @enderror
 
@@ -68,6 +63,9 @@
 
 
                     </div>
+
+
+
 
 
 
@@ -85,15 +83,12 @@
 
 
                     <div class="mb-3">
-                        <label for="admission_date" class="form-label">To Date</label>
-
-
-                        <input class="input is-info d-grid col-12" type="date" name="to_date"
-                            value="{{ old('to_date') }}">
+                        <input class="input is-info  d-grid" type="number" name="place" value="{{ old('place') }}"
+                            placeholder="Place" min="1">
 
                         <div class="row ">
 
-                            @error('to_date')
+                            @error('place')
                                 <p class="text-danger  fs-6 fw-bold">{{ $message }}</p>
                             @enderror
 
@@ -107,9 +102,13 @@
 
 
 
+
+
+
+
+
+
                 </div>
-
-
 
 
                 {{-- <div class="col-12 overflow-scroll">
@@ -154,7 +153,7 @@
 
                 <div class="col-12">
 
-                    <button class="button is-info mt-5 d-grid col-12" onclick="addNewTeacher();">Create Batch</button>
+                    <button class="button is-info mt-5 d-grid col-12">Add Achievement</button>
 
 
                 </div>
@@ -198,27 +197,24 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">From Date</th>
-                    <th scope="col">To Date</th>
-                    <th scope="col">View Batch</th>
+                    <th scope="col">Event</th>
+                    <th scope="col">Place</th>
 
 
                 </tr>
             </thead>
-            <tbody id="teacher_loading_area">
+            <tbody >
 
                 @php
                     $count = 1;
                 @endphp
 
-                @foreach ($batches as $batch)
+                @foreach ($achievements as $achievement)
                     <tr>
                         <th scope="row">{{ $count++ }}</td>
-                        <td>{{ $batch->from_date }}</td>
-                        <td>{{ $batch->to_date }}</td>
-                        <td><a class="button is-danger"
-                                href="{{ asset($schoolClass->id . '/batches/' . $batch->id . '/edit') }}">View</a></td>
-
+                        <td>{{ $achievement->event->name }}</td>
+                        <td>{{ $achievement->place }}</td>
+            
                     </tr>
                 @endforeach
 

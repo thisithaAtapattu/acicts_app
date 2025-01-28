@@ -16,7 +16,7 @@ class TeacherLogInRestrictionMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if ($request->session()->get('teacher') != null) {
-            return redirect(to: '/teachers/teacher-management');
+            return redirect('/teachers/class-management');
         }
         return $next($request);
     }

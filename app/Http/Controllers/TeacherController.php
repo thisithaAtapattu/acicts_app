@@ -69,8 +69,8 @@ class TeacherController extends Controller
                 ->whereNot("id", $teacher->id)
                 ->get()->count() == 0 &&
 
-                Teacher::where("contact_no", $request->contact_no)
-                ->whereNot("nic_no", $teacher->nic_no)
+                Teacher::where("nic_no", $request->nic_no)
+                ->whereNot("id", $teacher->id)
                 ->get()->count() == 0
             ) {
 

@@ -15,11 +15,11 @@ class SchoolLogInRestrictionMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if($request->session()->get('school')!=null){
-            return redirect(to: '/schools/student-management');
+        // if($request->session()->get('school')!=null){
+        //     return redirect(to: '/schools/student-management');
 
 
-        }
+        // }
 
         return $next($request);
     }

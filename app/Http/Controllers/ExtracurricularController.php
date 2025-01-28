@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\DB;
 class ExtracurricularController extends Controller
 {
 
+    public static $extracurricularTypes = [
+        1 => "Sport",
+        2 => "Club"
+
+    ];
     //
 
     public function create(Request $request)
@@ -32,13 +37,13 @@ class ExtracurricularController extends Controller
             }
 
 
-                $queryBuilder->where(function($query) use ($value) {
-                    $query->where(DB::raw("activities.name"), '=', $value)
-                        ->orWhere(DB::raw("activities.type"), '=', $value)
-                        ->orWhere(DB::raw("CONCAT(teachers.first_name, ' ',teachers.last_name)"), 'LIKE', '%' . $value . '%')
-                        ->orWhere(DB::raw("CONCAT(teachers.first_name, ' ',teachers.last_name,' - ',teachers.nic_no)"), 'LIKE', '%' . $value . '%')
-                        ->orWhere(DB::raw("CONCAT(teachers.nic_no,' - ',teachers.first_name, ' ',teachers.last_name)"), 'LIKE', '%' . $value . '%');
-                })->where('school_id', '=', $request->session()->get("school")->id);
+            $queryBuilder->where(function ($query) use ($value) {
+                $query->where(DB::raw("activities.name"), '=', $value)
+                    ->orWhere(DB::raw("activities.type"), '=', $value)
+                    ->orWhere(DB::raw("CONCAT(teachers.first_name, ' ',teachers.last_name)"), 'LIKE', '%' . $value . '%')
+                    ->orWhere(DB::raw("CONCAT(teachers.first_name, ' ',teachers.last_name,' - ',teachers.nic_no)"), 'LIKE', '%' . $value . '%')
+                    ->orWhere(DB::raw("CONCAT(teachers.nic_no,' - ',teachers.first_name, ' ',teachers.last_name)"), 'LIKE', '%' . $value . '%');
+            })->where('school_id', '=', $request->session()->get("school")->id);
         }
 
 
@@ -46,11 +51,7 @@ class ExtracurricularController extends Controller
 
         return view("extracurriculars.create", [
             "extracurriculars" => $queryBuilder->get(),
-            "extracurricularTypes" => [
-                1 => "Sport",
-                2 => "Club"
-
-            ],
+            "extracurricularTypes" => self::$extracurricularTypes,
 
             "teachers" =>   Teacher::where("school_id", $request->session()->get("school")->id)->orderBy(DB::raw("CONCAT(nic_no,' - ',first_name,' ',last_name)"), "ASC")->get()
 
@@ -115,7 +116,7 @@ class ExtracurricularController extends Controller
     {
 
 
-        
+
 
 
 
@@ -133,14 +134,26 @@ class ExtracurricularController extends Controller
             return redirect(to: "/schools/extracurricular-management")->with('error-message', 'The selected to  grade is invalid.');
         }
 
-        $extracurricular->from_grade=$request->from_grade;
-        $extracurricular->to_grade=$request->to_grade;
-        $extracurricular->teacher_id=$request->teacher;
+        $extracurricular->from_grade = $request->from_grade;
+        $extracurricular->to_grade = $request->to_grade;
+        $extracurricular->teacher_id = $request->teacher;
 
         $extracurricular->save();
 
 
 
         return redirect("/schools/extracurricular-management")->with('success-message', 'The changes have been recorded!');
+    }
+
+
+
+    public function manage(Request $request)
+    {
+
+        return view("extracurriculars.manage", [
+            "extracurriculars" =>  Extracurricular::where('teacher_id', $request->session()->get("teacher")->id)->get(),
+            "extracurricularTypes" => self::$extracurricularTypes,
+
+        ]);
     }
 }

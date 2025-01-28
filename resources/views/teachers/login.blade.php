@@ -8,7 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Ministry of Education | Student Login</title>
-    <link rel="icon" href="{{ asset('img/1200px-Emblem_of_Sri_Lanka.svg.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('img/favicons/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('img/favicons/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('img/favicons/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ asset('img/favicons/site.webmanifest') }}">
     <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" />
 
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" /><!-- My Css File -->
@@ -91,7 +94,7 @@
                             <div class="card ">
                                 <div class="card-content text-center">
 
-                                
+
 
                                     <img src="{{ asset('img/education-illustration.svg') }}" class="col-7">
                                     <h1 class="title mt-2">TEACHER LOGIN</h1>
@@ -120,7 +123,7 @@
                                         <div class="field">
                                             <p class="control has-icons-left has-icons-right">
                                                 <input class="input" type="email" placeholder="Email Address"
-                                                    name="email" value="{{old('email')}}" />
+                                                    name="email" value="{{ old('email') }}" />
                                                 <span class="icon is-small is-left">
                                                     <i class="bi bi-at"></i> </span>
 
@@ -134,7 +137,7 @@
                                                     <div class="field">
                                                         <p class="control has-icons-left">
                                                             <input class="input" type="password" placeholder="Password"
-                                                                name="password" value="{{old('password')}}" />
+                                                                name="password" value="{{ old('password') }}" />
                                                             <span class="icon is-small is-left">
                                                                 <i class="bi bi-lock-fill"></i>
                                                             </span>
