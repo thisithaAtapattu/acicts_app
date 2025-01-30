@@ -21,7 +21,7 @@ The primary goal is to enhance student performance tracking within educational i
 ## Credentials
 Use the following credentials to explore the system:
 
-### Teacher Account 1
+### Teacher Account
 - **Email**: john.doe@example.com  
 - **Password**: securepassword
 
