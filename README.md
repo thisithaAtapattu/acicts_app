@@ -37,6 +37,3 @@ Explore the live application here: [ACICTS APP](https://orangered-sardine-260845
 2. Log in with the provided credentials.
 3. Teachers can access student performance features.
 4. School administrators manage registrations and other administrative tasks.
-
-## License
-This project is licensed under [LICENSE_NAME] (please replace with actual license).
